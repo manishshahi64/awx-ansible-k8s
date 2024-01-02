@@ -1,2 +1,2 @@
 ---
-# defaults file for check_dependencies
+kubernetes_version: v1.27.1

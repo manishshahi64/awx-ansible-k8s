@@ -1,0 +1,7 @@
+---
+- name: Update package cache
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: (ansible_facts['distribution'] == "CentOS" and ansible_os_family == 'CentOS' and ansible_architecture = 'x86_64')
+  # Only run "update_cache=yes" if the last one is more than 3600 seconds ago

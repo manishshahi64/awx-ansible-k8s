@@ -1,3 +1,6 @@
 ---
 - name: Prerequisite | install prerequisite applications
-  include_tasks: install_prerequisite.yml
+  include_tasks: intall_in_Ubuntu.yml
+
+- name: Prerequisite | install prerequisite applications
+  include_tasks: install_in_CentOS.yml
