@@ -34,13 +34,14 @@
 
 - name: Add an apt signing key for Kubernetes
   ansible.builtin.apt_key:
-    url: https://pkgs.k8s.io/core:/stable:/{{ kubernetes_version }}/deb/Release.key
+    url: https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_version }}/deb/Release.key
     keyring: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    state: present
 
 
 - name: Adding apt repository for Kubernetes
   apt_repository:
-    repo: deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_version }}/deb/
+    repo: deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_version }}/deb/
     state: present
     filename: kubernetes.list
 
@@ -51,6 +52,7 @@
     update_cache: yes
   vars:
     packages:
-      - kubelet 
-      - kubeadm 
-      - kubectl
+      - kubelet={{ kubelet_version }}
+      - kubeadm={{ kubeadm_version }}
+      - kubectl={{ kubectl_version }}
+

@@ -1,2 +1,5 @@
 ---
-kubernetes_version: v1.27.1
+kubernetes_major_version: v1.27
+kubectl_version: 1.27.1-00
+kubeadm_version: 1.27.1-00
+kubelet_version: 1.27.1-00
