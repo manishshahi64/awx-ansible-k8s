@@ -1,0 +1,8 @@
+---
+- name: install kubernetes
+  hosts: all
+  remote_user: sensen
+  become: yes
+  become_user: root
+  roles:
+    - install_default
