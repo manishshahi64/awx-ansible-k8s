@@ -41,15 +41,15 @@
 - name: Add an apt signing key for Kubernetes
   get_url:
     url: https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_version }}/deb/Release.key
-    dest: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
     mode: '0644'
     force: true
 
 - name: Adding apt repository for Kubernetes
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_version }}/deb/ /"
+    repo: deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_version }}/deb/ /
     state: present
-    filename: /etc/apt/sources.list.d/kubernetes.list
+    # filename: /etc/apt/sources.list.d/kubernetes.list
     update_cache: yes
 
 - name: Install Kubernetes binaries
