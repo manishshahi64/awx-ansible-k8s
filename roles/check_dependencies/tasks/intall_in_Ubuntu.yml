@@ -53,17 +53,17 @@
 
 - name: install Kubelet
   ansible.builtin.apt:
-    name: kubelet={{ kubelet_version }}
+    name: kubelet={{ kubernetes_major_version }}.*
     state: present
 
 - name: install Kubeadm
   ansible.builtin.apt:
-    name: kubeadm={{ kubeadm_version }}
+    name: kubeadm={{ kubernetes_major_version }}.*
     state: present
 
 - name: install Kubectl
   ansible.builtin.apt:
-    name: kubectl={{ kubectl_version }}
+    name: kubectl={{ kubernetes_major_version }}.*
     state: present
 
 - name: enable the Kubelet service, and enable it persistently
