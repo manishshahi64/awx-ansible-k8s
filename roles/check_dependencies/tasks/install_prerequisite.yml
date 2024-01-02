@@ -1,0 +1,5 @@
+---
+- name: Update package cache
+  ansible.builtin.apt:
+    update_cache: true
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_os_family == 'Debian')  # For Debian-based systems
