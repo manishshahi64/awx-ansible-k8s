@@ -1,5 +1,6 @@
 ---
 - name: Update package cache
   ansible.builtin.apt:
-    update_cache: true
+    update_cache: yes
+    cache_valid_time: 3600
   when: (ansible_facts['distribution'] == "Ubuntu" and ansible_os_family == 'Debian')  # For Debian-based systems
