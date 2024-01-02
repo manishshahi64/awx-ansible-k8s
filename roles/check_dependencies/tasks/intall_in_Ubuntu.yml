@@ -49,6 +49,7 @@
   apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_version }}/deb/ /"
     state: present
+    filename: /etc/apt/sources.list.d/kubernetes.list
     update_cache: yes
 
 - name: Install Kubernetes binaries
