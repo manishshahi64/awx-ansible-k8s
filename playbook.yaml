@@ -2,8 +2,8 @@
 - name: install kubernetes
   hosts: all
   remote_user: vagrant
-  become: yes
-  become_user: root
+  # become: yes
+  # become_user: root
   roles:
     - check_dependencies
     - install_kubernetes
