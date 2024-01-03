@@ -5,9 +5,9 @@
 - name: CentOS | Install kubernetes packages
   ansible.builtin.yum:
     pkg:
-    - kubelet={{ kubernetes_major_version }}.*
-    - kubeadm={{ kubernetes_major_version }}.*
-    - kubectl={{ kubernetes_major_version }}.*
+    - kubelet
+    - kubeadm
+    - kubectl
     - containerd.io
     state: present
 
