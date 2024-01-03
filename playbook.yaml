@@ -5,5 +5,5 @@
   become: yes
   become_user: root
   roles:
-    - check_dependencies
-    - install_kubernetes
+    - configure_Control_Plane
+    - configure_Worker
