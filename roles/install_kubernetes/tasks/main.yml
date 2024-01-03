@@ -1,8 +1,8 @@
 ---
-- name: Kubernetes | install Kubernetes
+- name: Ubuntu | Kubernetes | install Kubernetes
   include_tasks: install_on_ubuntu.yml
   when: (ansible_facts['distribution'] == 'Ubuntu' and ansible_os_family == 'Debian' and ansible_architecture == 'x86_64')
 
-- name: Kubernetes | install Kubernetes
+- name: CentOS | Kubernetes | install Kubernetes
   include_tasks: install_on_centos.yml
-  when: (ansible_facts['distribution'] == "CentOS" and ansible_os_family == 'CentOS' and ansible_architecture = 'x86_64')
+  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'CentOS' and ansible_architecture == 'x86_64')

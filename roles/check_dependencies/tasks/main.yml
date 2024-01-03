@@ -1,8 +1,8 @@
 ---
-- name: Prerequisite | ubuntu |install prerequisite applications
+- name: Ubuntu | Prerequisite | install prerequisite applications
   include_tasks: Ubuntu_prerequisite.yml
   when: (ansible_facts['distribution'] == 'Ubuntu' and ansible_os_family == 'Debian' and ansible_architecture == 'x86_64')
 
-- name: Prerequisite | CentOS |install prerequisite applications
+- name: CentOS | Prerequisite | install prerequisite applications
   include_tasks: CentOS_prerequisite.yml
   when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64')
