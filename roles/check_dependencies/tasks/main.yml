@@ -5,4 +5,4 @@
 
 - name: Prerequisite | install prerequisite applications
   include_tasks: CentOS_prerequisite.yml
-  when: (ansible_facts['distribution'] == "CentOS Linux" and ansible_os_family == 'CentOS' and ansible_architecture = 'x86_64')
+  # when: (ansible_facts['distribution'] == "CentOS Linux" and ansible_os_family == 'CentOS' and ansible_architecture = 'x86_64')

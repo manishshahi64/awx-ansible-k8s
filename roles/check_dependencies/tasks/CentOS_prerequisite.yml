@@ -1,4 +1,8 @@
 ---
+- name: Print all available facts
+  ansible.builtin.debug:
+    var: ansible_facts
+    
 - name: Update package cache
   ansible.builtin.apt:
     update_cache: yes
