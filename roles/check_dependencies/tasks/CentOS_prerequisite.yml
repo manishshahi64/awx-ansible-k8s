@@ -39,10 +39,7 @@
   register: docker_repo_status
 
 - name: CentOS | Add Docker repository if not present
-  ansible.builtin.shell:
-    cmd: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-  args:
-    executable: /bin/bash
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
   when: docker_repo_status.stat.exists == false
 
 - name: CentOS | Add kubernetes repository
