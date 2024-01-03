@@ -4,12 +4,12 @@
 
 - name: CentOS | Install kubernetes packages
   ansible.builtin.yum:
-  disable_excludes : kubernetes
     pkg:
     - kubelet
     - kubeadm
     - kubectl
     - containerd.io
+    disable_excludes : kubernetes
     state: present
 
 - name: CentOS | Configuring the systemd cgroup driver for Containerd
