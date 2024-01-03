@@ -33,11 +33,15 @@
     policy: targeted
     state: permissive
 
-- name: CentOS | Add docker repository
+- name: Add Docker repository
+  become: yes
   ansible.builtin.yum_repository:
-    name: docker
-    description: DOCKER YUM repo
+    name: docker-ce
+    description: Docker CE Stable - $basearch
     baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
+    enabled: yes
 
 - name: CentOS | Add kubernetes repository
   template:
