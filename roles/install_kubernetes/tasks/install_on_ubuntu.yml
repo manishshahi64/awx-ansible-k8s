@@ -1,5 +1,5 @@
 ---    
-- name: Install kubernetes packages
+- name: Ubuntu | Install kubernetes packages
   ansible.builtin.apt:
     pkg:
     - kubelet={{ kubernetes_major_version }}.*
@@ -8,18 +8,22 @@
     - containerd.io
     state: present
 
-- name: configuring the systemd cgroup driver for Containerd
+- name: Ubuntu | Configuring the systemd cgroup driver for Containerd
   lineinfile:
     path: /etc/containerd/config.toml
     regexp: '            SystemdCgroup = false'
     line: '            SystemdCgroup = true'
 
-- name: service activation 
-  service: 
-    name: {{ item }} 
-    state: started 
+- name: Ubuntu | Enable and restart Containerd service
+  systemd:
+    name: containerd
+    state: restarted
     enabled: yes
     daemon-reload: yes
-  with_item: 
-    - containerd 
-    - kubelet
+
+- name: Ubuntu | Enable and restart kubelet service
+  systemd:
+    name: kubelet
+    state: restarted
+    enabled: yes
+    daemon-reload: yes
