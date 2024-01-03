@@ -4,6 +4,7 @@
 
 - name: CentOS | Install kubernetes packages
   ansible.builtin.yum:
+  disable_excludes : kubernetes
     pkg:
     - kubelet
     - kubeadm
