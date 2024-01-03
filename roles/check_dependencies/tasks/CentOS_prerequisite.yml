@@ -1,7 +1,6 @@
 ---
-- name: Update package cache
-  ansible.builtin.apt:
-    update_cache: yes
-    cache_valid_time: 3600
+- name: CentOS |Update package cache
+  ansible.builtin.yum:
+    cacheonly: true
   when: (ansible_facts['distribution'] == "CentOS" and ansible_os_family == 'RedHat' and ansible_architecture = 'x86_64')
 
