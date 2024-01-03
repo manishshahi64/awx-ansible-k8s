@@ -90,12 +90,6 @@
     name: net.ipv4.ip_forward
     value: 1
 
-- name: configuring the systemd cgroup driver for Containerd
-  lineinfile:
-    path: /etc/containerd/config.toml
-    regexp: '            SystemdCgroup = false'
-    line: '            SystemdCgroup = true'
-
 - name: create an empty file for Kubernetes sysctl params
   copy:
     content: ""

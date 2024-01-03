@@ -1,4 +1,4 @@
----
+---    
 - name: Install kubernetes packages
   ansible.builtin.apt:
     pkg:
@@ -7,6 +7,12 @@
     - kubectl={{ kubernetes_major_version }}.*
     - containerd.io
     state: present
+
+- name: configuring the systemd cgroup driver for Containerd
+  lineinfile:
+    path: /etc/containerd/config.toml
+    regexp: '            SystemdCgroup = false'
+    line: '            SystemdCgroup = true'
 
 - name: service activation 
   service: 
