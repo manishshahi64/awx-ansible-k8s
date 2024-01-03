@@ -24,7 +24,6 @@
     packages:
     - curl
     - yum-utils
-    - iproute-tc
 
 - name: CentOS | Disable SELinux
   ansible.posix.selinux:
