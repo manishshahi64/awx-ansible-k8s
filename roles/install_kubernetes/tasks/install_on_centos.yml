@@ -1,0 +1,32 @@
+- name: CentOS | Update package cache
+  ansible.builtin.yum:
+    cacheonly: true
+  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64')
+
+- name: CentOS | Install kubernetes packages
+  ansible.builtin.yum:
+    pkg:
+    - kubelet={{ kubernetes_major_version }}.*
+    - kubeadm={{ kubernetes_major_version }}.*
+    - kubectl={{ kubernetes_major_version }}.*
+    - containerd.io
+    state: present
+
+- name: CentOS | Configuring the systemd cgroup driver for Containerd
+  lineinfile:
+    path: /etc/containerd/config.toml
+    regexp: '            SystemdCgroup = false'
+    line: '            SystemdCgroup = true'
+
+- name: CentOS | Enable and restart Containerd service
+  service:
+    name: containerd
+    state: restarted
+    enabled: yes
+    daemon-reload: yes
+
+- name: CentOS | Enable and restart kubelet service
+  service:
+    name: kubelet
+    state: restarted
+    enabled: yes
