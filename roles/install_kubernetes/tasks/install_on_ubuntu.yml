@@ -1,0 +1,19 @@
+---
+- name: Install kubernetes packages
+  ansible.builtin.apt:
+    pkg:
+    - kubelet={{ kubernetes_major_version }}.*
+    - kubeadm={{ kubernetes_major_version }}.*
+    - kubectl={{ kubernetes_major_version }}.*
+    - containerd.io
+    state: present
+
+- name: service activation 
+  service: 
+    name: {{ item }} 
+    state: started 
+    enabled: yes
+    daemon-reload: yes
+  with_item: 
+    - containerd 
+    - kubelet

@@ -3,8 +3,6 @@
   ansible.builtin.apt:
     update_cache: yes
     cache_valid_time: 3600
-  when: (ansible_facts['distribution'] == 'Ubuntu' and ansible_os_family == 'Debian' and ansible_architecture == 'x86_64')
-  # Only run "update_cache=yes" if the last one is more than 3600 seconds ago
 
 - name: Remove swapfile from /etc/fstab
   mount:
@@ -92,32 +90,11 @@
     name: net.ipv4.ip_forward
     value: 1
 
-- name: install Containerd
-  apt:
-    name: containerd.io
-    state: present
-
 - name: configuring the systemd cgroup driver for Containerd
   lineinfile:
     path: /etc/containerd/config.toml
     regexp: '            SystemdCgroup = false'
     line: '            SystemdCgroup = true'
-
-- name: enable the Containerd service and start it
-  systemd:
-    name: containerd
-    state: restarted
-    enabled: yes
-    daemon-reload: yes
-
-
-- name: Install a list of packages
-  ansible.builtin.apt:
-    pkg:
-    - kubelet={{ kubernetes_major_version }}.*
-    - kubeadm={{ kubernetes_major_version }}.*
-    - kubectl={{ kubernetes_major_version }}.*
-    state: present
 
 - name: create an empty file for Kubernetes sysctl params
   copy:
@@ -136,10 +113,3 @@
 
 - name: apply sysctl params without reboot
   command: sysctl --system
-
-- name: enable the Kubelet service, and enable it persistently
-  ansible.builtin.service:
-    name: kubelet
-    enabled: yes
-    state: restarted
-    daemon-reload: yes
