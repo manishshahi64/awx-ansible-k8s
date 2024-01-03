@@ -5,4 +5,4 @@
 
 - name: CentOS | Kubernetes | install Kubernetes
   include_tasks: install_on_centos.yml
-  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'CentOS' and ansible_architecture == 'x86_64')
+  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64')

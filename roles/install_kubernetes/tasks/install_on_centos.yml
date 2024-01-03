@@ -1,7 +1,6 @@
 - name: CentOS | Update package cache
   ansible.builtin.yum:
     cacheonly: true
-  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64')
 
 - name: CentOS | Install kubernetes packages
   ansible.builtin.yum:
