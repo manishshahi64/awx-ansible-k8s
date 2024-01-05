@@ -1,7 +1,7 @@
 ---
 - name: CentOS | Update package cache
   ansible.builtin.yum:
-    cacheonly: true
+    update_cache: true
 
 - name: CentOS | Remove swapfile from /etc/fstab
   mount:
