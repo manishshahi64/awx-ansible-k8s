@@ -1,8 +1,8 @@
 ---
 - name: Ubuntu-Worker | Kubernetes | install Kubernetes | Worker
   include_tasks: setup_worker_ubuntu.yml
-  when: (ansible_facts['distribution'] == 'Ubuntu' and ansible_os_family == 'Debian' and ansible_architecture == 'x86_64')
+  when: (ansible_facts['distribution'] == 'Ubuntu' and ansible_os_family == 'Debian' and ansible_architecture == 'x86_64' and ansible_hostname != ubuntu_master_hostname)
 
 - name: CentOS-Master | Prerequisite | install prerequisite applications | Worker
   include_tasks: setup_worker_centos.yml
-  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64')
+  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64'  and ansible_hostname != centos_master_hostname)
