@@ -42,7 +42,7 @@
 
 - name: CentOS-Master | create .kube directory
   become: yes
-  become_user: "{{ master_node_username }}""
+  become_user: "{{ master_node_username }}"
   file:
     path: $HOME/.kube
     state: directory
