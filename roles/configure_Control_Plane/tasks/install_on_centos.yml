@@ -68,4 +68,5 @@
 
 - name: CentOS-Master | set join command
   set_fact:
-    join_command: "{{ my_join_command.stdout_lines[0] }}"
+    # join_command: "{{ my_join_command.stdout_lines[0] }}"
+    shell: "{{ hostvars['ubuntu-master'].join_command }}"
