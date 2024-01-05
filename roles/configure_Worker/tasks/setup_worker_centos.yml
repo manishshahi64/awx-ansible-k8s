@@ -129,4 +129,4 @@
     enabled: yes
 
 - name: CentOS-Worker | join worker to master
-  shell: "{{ ansible_facts.join_command }}"
+  shell: "{{ ansible_facts.my_join_command }}"

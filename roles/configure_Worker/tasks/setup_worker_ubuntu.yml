@@ -142,5 +142,5 @@
     enabled: yes
 
 - name: Ubuntu-Worker | join worker to master
-  shell: "{{ ansible_facts.join_command }}"
+  shell: "{{ ansible_facts.my_join_command }}"
 
