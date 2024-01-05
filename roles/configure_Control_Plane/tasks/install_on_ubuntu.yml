@@ -38,7 +38,7 @@
 
 - name: Ubuntu-Master | create .kube directory
   become: yes
-  become_user: {{ master_node_username }}
+  become_user: "{{ master_node_username }}"
   file:
     path: $HOME/.kube
     state: directory
@@ -49,11 +49,11 @@
     src: /etc/kubernetes/admin.conf
     dest: /home/{{ master_node_username }}/.kube/config
     remote_src: yes
-    owner: {{ master_node_username }}
+    owner: "{{ master_node_username }}"
 
 - name: Ubuntu-Master | install calico Pod network
   become: yes
-  become_user: {{ master_node_username }}
+  become_user: "{{ master_node_username }}"
   shell: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v{{ calico_version }}/manifests/calico.yaml
   args:
     chdir: $HOME
