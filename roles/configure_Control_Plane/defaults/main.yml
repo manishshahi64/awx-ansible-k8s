@@ -2,3 +2,5 @@
 kubernetes_major_version: 1.27
 ubuntu_master_hostname: ubuntu-master
 centos_master_hostname: centos-master
+master_node_username: vagrant
+calico_version: 3.26.1

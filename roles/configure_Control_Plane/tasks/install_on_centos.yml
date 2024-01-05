@@ -1,8 +1,8 @@
-- name: CentOS | Update package cache
+- name: CentOS-Master | Update package cache
   ansible.builtin.yum:
     cacheonly: true
 
-- name: CentOS | Install kubernetes packages
+- name: CentOS-Master | Install kubernetes packages
   ansible.builtin.yum:
     pkg:
     - kubelet
@@ -12,27 +12,60 @@
     disable_excludes : kubernetes
     state: present
 
-- name: CentOS | Configuring the systemd cgroup driver for Containerd
+- name: CentOS-Master | Configuring the systemd cgroup driver for Containerd
   lineinfile:
     path: /etc/containerd/config.toml
     regexp: '            SystemdCgroup = false'
     line: '            SystemdCgroup = true'
 
-- name: CentOS | Updating /etc/containerd/config.toml
+- name: CentOS-Master | Updating /etc/containerd/config.toml
   lineinfile:
     path: /etc/containerd/config.toml
     regexp: 'disabled_plugins = ["cri"]'
     line: '#disabled_plugins = ["cri"]'
 
-- name: CentOS | Enable and restart Containerd service
+- name: CentOS-Master | Enable and restart Containerd service
   service:
     name: containerd
     state: restarted
     enabled: yes
     daemon-reload: yes
 
-- name: CentOS | Enable and restart kubelet service
+- name: CentOS-Master | Enable and restart kubelet service
   service:
     name: kubelet
     state: restarted
     enabled: yes
+
+- name: CentOS-Master | Initialize the cluster
+  shell: kubeadm init --pod-network-cidr=192.168.0.0/16
+
+- name: CentOS-Master | create .kube directory
+  become: yes
+  become_user: {{ master_node_username }}
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755
+
+- name: CentOS-Master | copy admin.conf to user's kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/{{ master_node_username }}/.kube/config
+    remote_src: yes
+    owner: {{ master_node_username }}
+
+- name: CentOS-Master | install calico Pod network
+  become: yes
+  become_user: {{ master_node_username }}
+  shell: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v{{ calico_version }}/manifests/calico.yaml
+  args:
+    chdir: $HOME
+
+- name: CentOS-Master | Get join command
+  shell: kubeadm token create --print-join-command
+  register: my_join_command
+
+- name: CentOS-Master | set join command
+  set_fact:
+    join_command: "{{ my_join_command.stdout_lines[0] }}"

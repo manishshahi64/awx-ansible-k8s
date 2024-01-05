@@ -1,9 +1,9 @@
 ---
-- name: CentOS | Update package cache
+- name: CentOS-Master | Update package cache
   ansible.builtin.yum:
     update_cache: true
 
-- name: CentOS | Remove swapfile from /etc/fstab
+- name: CentOS-Master | Remove swapfile from /etc/fstab
   mount:
     name: "{{ item }}"
     fstype: swap
@@ -12,11 +12,11 @@
     - swap
     - none
 
-- name: CentOS | Disable swap
+- name: CentOS-Master | Disable swap
   command: swapoff -a
   when: ansible_swaptotal_mb > 0
 
-- name: CentOS | Install a list of packages with a list variable
+- name: CentOS-Master | Install a list of packages with a list variable
   ansible.builtin.yum:
     name: "{{ packages }}"
   vars:
@@ -24,25 +24,25 @@
     - curl
     - yum-utils
 
-- name: CentOS | Disable SELinux
+- name: CentOS-Master | Disable SELinux
   ansible.posix.selinux:
     state: disabled
 
-- name: CentOS | Put SELinux in permissive mode
+- name: CentOS-Master | Put SELinux in permissive mode
   ansible.posix.selinux:
     policy: targeted
     state: permissive
 
-- name: CentOS | Check if Docker repository file is present
+- name: CentOS-Master | Check if Docker repository file is present
   ansible.builtin.stat:
     path: /etc/yum.repos.d/docker-ce.repo
   register: docker_repo_status
 
-- name: CentOS | Add Docker repository if not present
+- name: CentOS-Master | Add Docker repository if not present
   command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
   when: docker_repo_status.stat.exists == false
 
-- name: CentOS | Add kubernetes repository
+- name: CentOS-Master | Add kubernetes repository
   template:
     src: kubernetes.repo.j2
     dest: "/etc/yum.repos.d/kubernetes.repo"
@@ -50,28 +50,28 @@
     group: root
     mode: 0644
 
-- name: CentOS | load br_netfilter kernel module
+- name: CentOS-Master | load br_netfilter kernel module
   modprobe:
     name: br_netfilter
     state: present
 
-- name: CentOS | set bridge-nf-call-iptables
+- name: CentOS-Master | set bridge-nf-call-iptables
   sysctl:
     name: net.bridge.bridge-nf-call-iptables
     value: 1
 
-- name: CentOS | set ip_forward
+- name: CentOS-Master | set ip_forward
   sysctl:
     name: net.ipv4.ip_forward
     value: 1
 
-- name: CentOS | create an empty file for Kubernetes sysctl params
+- name: CentOS-Master | create an empty file for Kubernetes sysctl params
   copy:
     content: ""
     dest: /etc/sysctl.d/k8s.conf
     force: no
 
-- name: CentOS | configure sysctl params for Kubernetes
+- name: CentOS-Master | configure sysctl params for Kubernetes
   lineinfile:
     path: /etc/sysctl.d/k8s.conf
     line: "{{ item }}"
@@ -80,10 +80,10 @@
     - 'net.ipv4.ip_forward                 = 1'
     - 'net.bridge.bridge-nf-call-ip6tables = 1'
 
-- name: CentOS | apply sysctl params without reboot
+- name: CentOS-Master | apply sysctl params without reboot
   command: sysctl --system
 
-- name: CentOS | Disable and stop Firewalld service
+- name: CentOS-Master | Disable and stop Firewalld service
   systemd:
     name: firewalld
     state: stopped
