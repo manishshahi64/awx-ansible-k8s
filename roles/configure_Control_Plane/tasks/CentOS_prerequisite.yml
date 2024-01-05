@@ -39,7 +39,7 @@
   register: docker_repo_status
 
 - name: CentOS-Master | Add Docker repository if not present
-  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
   when: docker_repo_status.stat.exists == false
 
 - name: CentOS-Master | Add kubernetes repository
