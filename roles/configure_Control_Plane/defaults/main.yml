@@ -1,2 +1,4 @@
 ---
 kubernetes_major_version: 1.27
+ubuntu_master_hostname: ubuntu-master
+centos_master_hostname: centos-master

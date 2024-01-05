@@ -1,16 +1,16 @@
 ---
 - name: Ubuntu | Prerequisite | install prerequisite applications
   include_tasks: Ubuntu_prerequisite.yml
-  when: (ansible_facts['distribution'] == 'Ubuntu' and ansible_os_family == 'Debian' and ansible_architecture == 'x86_64')
+  when: (ansible_facts['distribution'] == 'Ubuntu' and ansible_os_family == 'Debian' and ansible_architecture == 'x86_64' and ansible_hostname == ubuntu_master_hostname)
 
 - name: Ubuntu | Kubernetes | install Kubernetes
   include_tasks: install_on_ubuntu.yml
-  when: (ansible_facts['distribution'] == 'Ubuntu' and ansible_os_family == 'Debian' and ansible_architecture == 'x86_64')
+  when: (ansible_facts['distribution'] == 'Ubuntu' and ansible_os_family == 'Debian' and ansible_architecture == 'x86_64' and ansible_hostname == ubuntu_master_hostname)
 
 - name: CentOS | Prerequisite | install prerequisite applications
   include_tasks: CentOS_prerequisite.yml
-  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64')
+  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64' and ansible_hostname == centos_master_hostname)
 
 - name: CentOS | Kubernetes | install Kubernetes
   include_tasks: install_on_centos.yml
-  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64')
+  when: (ansible_facts['distribution'] == 'CentOS' and ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64' and ansible_hostname == centos_master_hostname)
