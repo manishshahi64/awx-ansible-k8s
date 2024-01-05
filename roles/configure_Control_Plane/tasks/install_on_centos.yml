@@ -18,6 +18,12 @@
     regexp: '            SystemdCgroup = false'
     line: '            SystemdCgroup = true'
 
+- name: CentOS | Updating /etc/containerd/config.toml
+  lineinfile:
+    path: /etc/containerd/config.toml
+    regexp: 'disabled_plugins = ["cri"]'
+    line: '#disabled_plugins = ["cri"]'
+
 - name: CentOS | Enable and restart Containerd service
   service:
     name: containerd

@@ -50,6 +50,21 @@
     group: root
     mode: 0644
 
+- name: CentOS | load br_netfilter kernel module
+  modprobe:
+    name: br_netfilter
+    state: present
+
+- name: CentOS | set bridge-nf-call-iptables
+  sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: 1
+
+- name: CentOS | set ip_forward
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+
 - name: CentOS | create an empty file for Kubernetes sysctl params
   copy:
     content: ""
