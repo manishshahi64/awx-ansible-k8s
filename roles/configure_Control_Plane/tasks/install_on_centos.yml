@@ -21,8 +21,8 @@
 - name: CentOS-Master | Updating /etc/containerd/config.toml
   lineinfile:
     path: /etc/containerd/config.toml
-    regexp: 'disabled_plugins = ["cri"]'
-    line: '#disabled_plugins = ["cri"]'
+    state: absent
+    regexp: '^disabled_plugins = \["cri"\]'
 
 - name: CentOS-Master | Enable and restart Containerd service
   service:
