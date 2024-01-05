@@ -112,8 +112,8 @@
 - name: CentOS-Worker | Updating /etc/containerd/config.toml
   lineinfile:
     path: /etc/containerd/config.toml
-    regexp: 'disabled_plugins = ["cri"]'
-    line: '#disabled_plugins = ["cri"]'
+    state: absent
+    regexp: '^disabled_plugins = \["cri"\]'
 
 - name: CentOS-Worker | Enable and restart Containerd service
   service:
@@ -129,4 +129,4 @@
     enabled: yes
 
 - name: CentOS-Worker | join worker to master
-  shell: "{{ hostvars['centos-master'].join_command }}"
+  shell: "{{ ansible_facts.join_command }}"
