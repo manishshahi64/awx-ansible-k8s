@@ -34,7 +34,7 @@
     enabled: yes
 
 - name: Ubuntu-Master | Initialize the cluster
-  shell: kubeadm init --apiserver-advertise-address="{{ master_node-advertise_ip }}" --pod-network-cidr=192.168.0.0/16
+  shell: kubeadm init --apiserver-advertise-address="{{ master_node_advertise_ip }}" --pod-network-cidr=192.168.0.0/16
 
 - name: Ubuntu-Master | create .kube directory
   become: yes
