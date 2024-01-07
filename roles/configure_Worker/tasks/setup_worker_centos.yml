@@ -129,4 +129,4 @@
     enabled: yes
 
 - name: CentOS-Worker | join worker to master
-  shell: "{{ hostvars['centos-master'].join_command }}"
+  shell: "{{ hostvars['master_node_advertise_ip'].join_command }}"
