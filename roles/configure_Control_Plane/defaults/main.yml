@@ -4,3 +4,4 @@ ubuntu_master_hostname: ubuntu-master
 centos_master_hostname: centos-master
 master_node_username: vagrant
 calico_version: 3.26.1
+master_node-advertise_ip: 192.168.29.203

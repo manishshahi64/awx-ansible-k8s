@@ -38,7 +38,7 @@
     enabled: yes
 
 - name: CentOS-Master | Initialize the cluster
-  shell: kubeadm init --pod-network-cidr=192.168.0.0/16
+  shell: kubeadm init --apiserver-advertise-address="{{ master_node-advertise_ip }}" --pod-network-cidr=192.168.0.0/16
 
 - name: CentOS-Master | create .kube directory
   become: yes
