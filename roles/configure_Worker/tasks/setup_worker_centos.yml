@@ -129,4 +129,4 @@
     enabled: yes
 
 - name: CentOS-Worker | join worker to master
-  shell: "{{ hostvars['ubuntu-master'].join_command }}"
+  shell: "{{ hostvars['centos-master'].join_command }}"
